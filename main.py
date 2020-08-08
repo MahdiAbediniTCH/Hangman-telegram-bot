@@ -13,8 +13,8 @@ REPLIES = {'welcome': "به ربات بازی Hangman خوش اومدین.",
           }
 
 FILES = {'english': "wordset/english.txt",
-         'farsi': "wordset/farsi.txt",
-         'zarbolmasal': "wordset/zarbolmasal.txt",
+         'farsi': "wordset/persian.txt",
+         'zarbolmasal': "wordset/persian_proverbs.txt",
         }
 
 TOKEN = "token"
