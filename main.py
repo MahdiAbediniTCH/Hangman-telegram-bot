@@ -2,6 +2,9 @@ from telegram.ext import CommandHandler, MessageHandler, ConversationHandler, Re
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ParseMode
 
 
+def character_button(char):
+    return InlineKeyboardButton(char, callback_data = char)
+
 REPLIES = {'welcome': "به ربات بازی Hangman خوش اومدین.", 
           'language': "زبان بازی را انتخاب کنید",
           'farsi': "کلمه میخوای یا ضرب المثل",
@@ -16,6 +19,11 @@ FILES = {'english': "wordset/english.txt",
          'farsi': "wordset/farsi.txt",
          'zarbolmasal': "wordset/zarbolmasal.txt",
         }
+
+CHARACTERS = {'english': [
+          [character_button('a'), character_button('b'), character_button('c'), character_button('d'), character_button('e'), character_button('f'), character_button('g'), character_button('h'), character_button('i'), character_button('j')],
+          [character_button('k'), character_button('l'), character_button('m'), character_button('n'), character_button('o'), character_button('p'), character_button('q'), character_button('r'), character_button('s')],
+          
 
 TOKEN = "token"
 
