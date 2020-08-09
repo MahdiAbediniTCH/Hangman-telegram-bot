@@ -3,7 +3,18 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, ConversationHa
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ParseMode
 from random import randint
 
-
+class HangMan:
+    def __init__(self, wordset, word, n_tries, word_guessed):
+	self.wordset = wordset
+	self.word = word
+	self.n_tries = n_tries
+	self.word_guessed = word_guessed
+	self.letters_guessed = list()
+    def new_guess(self, char):
+	if char in self.letters_guessed:
+	    return False
+	self.letters_guessed.append(char)
+	return True
 def character_button(char):
     return InlineKeyboardButton(char, callback_data=char)
 
@@ -128,7 +139,9 @@ def start_game(bot, update, wordset):
     data[update.message.from_user.id] = {'type': wordset, 'word': word, 'tries_left': n_tries, 'letters_guessed': [], 'word_guessed': word_guessed}
 
 def play(bot, update):
-    pass
+    callback = update.callback_query
+    char = callback.data
+    
   
 def select_language(bot, update):
     language = update.message.text
