@@ -4,7 +4,8 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMa
 from random import randint
 
 class HangMan:
-    def __init__(self, wordset, word, n_tries, word_guessed):
+    def __init__(self, language, wordset, word, n_tries, word_guessed):
+	self.language = language
 	self.wordset = wordset
 	self.word = word
 	self.n_tries = n_tries
@@ -13,7 +14,6 @@ class HangMan:
     def new_guess(self, char):
 	if char in self.letters_guessed:
 	    return False
-	self.letters_guessed.append(char)
 	return True
 def character_button(char):
     return InlineKeyboardButton(char, callback_data=char)
@@ -140,7 +140,14 @@ def start_game(bot, update, wordset):
 
 def play(bot, update):
     callback = update.callback_query
-    char = callback.data
+    guess = callback.data
+    hang_man = data[callback.from_user.id]
+    new_guess = hang_man.new_guess(guess)
+    if not new_guess:
+	if 
+	bot.answer_callback_query(callback.id, 'این حرف رو ق
+	
+	
     
   
 def select_language(bot, update):
