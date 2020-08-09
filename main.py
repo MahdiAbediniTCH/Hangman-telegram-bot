@@ -89,43 +89,36 @@ CHARACTERS = {'english': [
             [character_button('p'), character_button('q'), character_button('r'), character_button('s'), character_button('t'), character_button('u')],
             [character_button('v'), character_button('w'), character_button('x'), character_button('y'), character_button('z')]
             	],
-          'persian': [
+              'persian': [
             [character_button('ا'), character_button('ب'), character_button('پ'), character_button('ت'), character_button('ث'), character_button('ج'), character_button('چ'), character_button('ح')],
 			[character_button('خ'), character_button('د'), character_button('ذ'), character_button('ر'), character_button('ز'), character_button('ژ'), character_button('س'), character_button('ش')],        
             [character_button('ص'), character_button('ض'), character_button('ط'), character_button('ظ'), character_button('ع'), character_button('غ'), character_button('ف'), character_button('ق')],
             [character_button('ک'), character_button('گ'), character_button('ل'), character_button('م'), character_button('ن'), character_button('و'), character_button('ه'), character_button('ی')]
           		]}
 
-TOKEN = "1341319205:AAGnpvwy1rqPdfFBQkHLu9LVUuTrLLAsilI"
+TOKEN = "token"
 
 data = {}
 
 
 class HangmanGame:
-    
-    def __init__(self, wordset, word, n_tries):
-        self.wordset = wordset
-        self.word = word
-        self.tries_left = n_tries
-        self.letters_guessed = list()
-        self.word_guessed = list()
-        for i in self.word:
-            if i != ' ':
-                self.word_guessed.append('_')
+    def __init__(self, language, wordset, word, n_tries):
+	self.language = language
+	self.wordset = wordset
+	self.word = word
+	self.tries_left = n_tries
+	self.letters_guessed = list()
+	self.word_guessed = list()
+	for i in word:
+            if i == ' ':
+                self.word_guessed.append(' ')
             else:
                 self.word_guessed.append(' ')
-    
-    def guess(self, char):
-        if char in self.letters_guessed:
-            return 0
-
-        result = -1
-        self.letters_guessed.append(char)
-        for i in range(len(self.word)):
-            if self.word[i] == char:
-                self.word_guessed[i] = self.word[i]
-                result = 1
-        return result
+        
+    def new_guess(self, char):
+	if char in self.letters_guessed:
+	    return False
+	return True
 
 
 def start(bot, update):
@@ -140,27 +133,32 @@ def start_game(bot, update, wordset):
     lines = file.readlines()
     word = lines[randint(0, len(lines) - 1)][:-1]
     n_tries = 6
-    
     word_placeholders = ""
     for i in word:
-        if i == ' ':
-            word_placeholders += "   "
-        else:
+    	if i == ' ':
+    	    word_placeholders += "   "
+    	else:
             word_placeholders += "__ "
-            
     language = wordset
     if wordset == "proverb":
     	language = "persian"
-    	
     update.message.reply_text('بازی شروع شد', reply_markup = ReplyKeyboardRemove())
     update.message.reply_text(REPLIES['game'] % (update.message.from_user.full_name, GAMEMODES[wordset], n_tries, HANGMANPICS[0], word_placeholders), reply_markup = InlineKeyboardMarkup(CHARACTERS[language]))
     
-    data[update.message.from_user.id] = HangmanGame(wordset, word, n_tries)
+    data[update.message.from_user.id] = HangmanGame(language, wordset, word, n_tries)
 
 def play(bot, update):
     callback = update.callback_query
-    char = callback.data
+    guess = callback.data
+    hang_man = data[callback.from_user.id]
+    new_guess = hang_man.new_guess(guess)
+    if not new_guess:
+	if 
+	bot.answer_callback_query(callback.id, 'این حرف رو ق
+	
+	
     
+  
 def select_language(bot, update):
     language = update.message.text
     if language == 'English':
